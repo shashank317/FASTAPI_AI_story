@@ -24,11 +24,8 @@ function StoryLoader() {
 
         try {
             const response = await axios.get(`${API_BASE_URL}/stories/${storyId}`)
-            if (response.data) {
-                setStory(response.data);
-            } else {
-                setError("Story is not found.");
-            }
+            setStory(response.data)
+            setLoading(false)
         } catch (err) {
             if (err.response?.status === 404) {
                 setError("Story is not found.")
