@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     # This is required for the story generator to work.
     # Renamed from GEMINI_API_KEY for consistency with the library.
     GOOGLE_API_KEY: str
+    OPENAI_API_KEY: str
 
     # OpenAPI metadata
     PROJECT_NAME: str = "Choose Your Own Adventure"
@@ -20,6 +21,10 @@ class Settings(BaseSettings):
     @field_validator("ALLOWED_ORIGINS", mode="before")
     def parse_allowed_origins(cls, v: str) -> List[str]:
         return [origin.strip() for origin in v.split(",")] if isinstance(v, str) else v
+    
+    def get_gemini_api_key(self):
+        # Prefer GOOGLE_API_KEY, fallback to OPENAI_API_KEY
+        return self.GOOGLE_API_KEY or self.OPENAI_API_KEY
 
     class Config:
         env_file = ".env"
