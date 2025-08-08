@@ -2,37 +2,29 @@ services:
   - type: web
     name: fastapi-backend
     env: python
-    # Specifies that commands should run from the root of the repo.
     rootDir: .
     buildCommand: "pip install -r backend/requirements.txt"
     startCommand: "gunicorn --chdir backend -w 4 -k uvicorn.workers.UvicornWorker main:app"
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
-      # IMPORTANT: Set these environment variables in the Render Dashboard
-      # for your 'fastapi-backend' service.
+      # Secrets to be set in Render Dashboard
       - key: GOOGLE_API_KEY
-        # In Render, create a secret with this name and your Gemini API key as the value.
-        value: "YOUR_GEMINI_API_KEY_HERE" 
+        value: "YOUR_GEMINI_API_KEY_HERE"
       - key: DATABASE_URL
-        # In Render, create a PostgreSQL database and use its "Internal Connection String".
         value: "YOUR_RENDER_DATABASE_URL_HERE"
       - key: ALLOWED_ORIGINS
-        # This will be the URL of your deployed frontend, e.g., https://vite-frontend.onrender.com
         value: "YOUR_FRONTEND_URL_HERE"
 
   - type: static_site
     name: vite-frontend
-    # Specifies that commands should run from the 'frontend' directory.
+    env: node # Explicitly set Node.js environment xx
     rootDir: frontend
     buildCommand: "npm install && npm run build"
-    # The output directory for the build is 'dist', relative to the rootDir.
     publishPath: dist
     envVars:
-      # IMPORTANT: Set this environment variable in the Render Dashboard
-      # for your 'vite-frontend' service.
+      # Env Var to be set in Render Dashboard
       - key: VITE_API_BASE_URL
-        # This will be the URL of your deployed backend, e.g., https://fastapi-backend.onrender.com
         value: "YOUR_BACKEND_URL_HERE"
     routes:
       - type: rewrite
