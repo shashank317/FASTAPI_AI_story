@@ -2,6 +2,23 @@ services:
   - type: web
     name: fastapi-backend
     env: python
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app
+    repo: https://github.com/Sumit-Suman-001/FastAPI.git # optional
+    region: oregon
     plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+  - type: static
+    name: vite-frontend
+    env: static
+    repo: https://github.com/shashank317/FASTAPI_AI_story # optional
+    region: oregon
+    plan: free
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
