@@ -21,9 +21,8 @@ services:
         # This will be the URL of your deployed frontend, e.g., https://vite-frontend.onrender.com
         value: "YOUR_FRONTEND_URL_HERE"
 
-  - type: static
+  - type: static_site
     name: vite-frontend
-    env: static
     # Specifies that commands should run from the 'frontend' directory.
     rootDir: frontend
     buildCommand: "npm install && npm run build"
