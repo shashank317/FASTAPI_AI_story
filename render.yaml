@@ -5,8 +5,7 @@ services:
     # Specifies that commands should run from the root of the repo.
     rootDir: .
     buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "gunicorn --chdir backend -w 4 -k uvicorn.workers.UvicornWorker main:app"
-    envVars:
+    nvVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
       # IMPORTANT: Set these environment variables in the Render Dashboard
