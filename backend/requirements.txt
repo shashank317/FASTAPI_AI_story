@@ -14,4 +14,4 @@ pydantic
 aiofiles
 jinja2
 openai
-
+gunicorn>=22.0.0

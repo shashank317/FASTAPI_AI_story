@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic_settings import BaseSettings
 from pydantic import field_validator
 
@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # This is required for the story generator to work.
     # Renamed from GEMINI_API_KEY for consistency with the library.
     GOOGLE_API_KEY: str
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: Optional[str] = None
 
     # OpenAPI metadata
     PROJECT_NAME: str = "Choose Your Own Adventure"

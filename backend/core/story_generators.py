@@ -76,10 +76,10 @@ class StoryGenerator:
     def _process_story_node(cls, db: Session, story_id: int, node_data: StoryNodeLLM, is_root: bool = False) -> StoryNode:
         node = StoryNode(
             story_id=story_id,
-            content=node_data.content if hasattr(node_data, "content") else node_data["content"],
+            content=node_data.content,
             is_root=is_root,
-            is_ending=node_data.isEnding if hasattr(node_data, "isEnding") else node_data.get["isEnding"],
-            is_winning_ending=node_data.isWinningEnding if hasattr(node_data, "isWinningEnding") else node_data.get["isWinningEnding"],
+            is_ending=node_data.isEnding,
+            is_winning_ending=node_data.isWinningEnding,
             options=[]
         )
         db.add(node)
