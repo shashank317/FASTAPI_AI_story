@@ -5,7 +5,8 @@ services:
     # Specifies that commands should run from the root of the repo.
     rootDir: .
     buildCommand: "pip install -r backend/requirements.txt"
-    nvVars:
+    startCommand: "gunicorn --chdir backend -w 4 -k uvicorn.workers.UvicornWorker main:app"
+    envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"
       # IMPORTANT: Set these environment variables in the Render Dashboard
@@ -20,7 +21,7 @@ services:
         # This will be the URL of your deployed frontend, e.g., https://vite-frontend.onrender.com
         value: "YOUR_FRONTEND_URL_HERE"
 
-  - type: static_site # Changed from 'static' to 'static_site' for clarity
+  - type: static
     name: vite-frontend
     env: static
     # Specifies that commands should run from the 'frontend' directory.
